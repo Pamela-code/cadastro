@@ -16,6 +16,17 @@ class _RegisterPageState extends State<RegisterPage> {
   final numbers = RegExp(r'[0-9]+');
   final emailValidate = RegExp(r'[@]');
   RegisterController controller = RegisterController();
+
+  registrar() async {
+    try {
+      await RegisterController()
+          .registrar(controller.email.text, controller.password.text);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -236,9 +247,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        registrar();
+                      }
                     },
-                    child: const Text('Continuar'),
+                    child: const Text('Cadastrar'),
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(

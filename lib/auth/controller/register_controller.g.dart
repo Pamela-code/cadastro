@@ -99,6 +99,76 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
     });
   }
 
+  final _$_authAtom = Atom(name: '_RegisterControllerBase._auth');
+
+  @override
+  FirebaseAuth get _auth {
+    _$_authAtom.reportRead();
+    return super._auth;
+  }
+
+  @override
+  set _auth(FirebaseAuth value) {
+    _$_authAtom.reportWrite(value, super._auth, () {
+      super._auth = value;
+    });
+  }
+
+  final _$usuarioAtom = Atom(name: '_RegisterControllerBase.usuario');
+
+  @override
+  User? get usuario {
+    _$usuarioAtom.reportRead();
+    return super.usuario;
+  }
+
+  @override
+  set usuario(User? value) {
+    _$usuarioAtom.reportWrite(value, super.usuario, () {
+      super.usuario = value;
+    });
+  }
+
+  final _$registrarAsyncAction =
+      AsyncAction('_RegisterControllerBase.registrar');
+
+  @override
+  Future registrar(String email, String senha) {
+    return _$registrarAsyncAction.run(() => super.registrar(email, senha));
+  }
+
+  final _$logoutAsyncAction = AsyncAction('_RegisterControllerBase.logout');
+
+  @override
+  Future logout() {
+    return _$logoutAsyncAction.run(() => super.logout());
+  }
+
+  final _$_RegisterControllerBaseActionController =
+      ActionController(name: '_RegisterControllerBase');
+
+  @override
+  dynamic _authCheck() {
+    final _$actionInfo = _$_RegisterControllerBaseActionController.startAction(
+        name: '_RegisterControllerBase._authCheck');
+    try {
+      return super._authCheck();
+    } finally {
+      _$_RegisterControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic _getUser() {
+    final _$actionInfo = _$_RegisterControllerBaseActionController.startAction(
+        name: '_RegisterControllerBase._getUser');
+    try {
+      return super._getUser();
+    } finally {
+      _$_RegisterControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
@@ -107,7 +177,8 @@ acceptTerms: ${acceptTerms},
 name: ${name},
 email: ${email},
 password: ${password},
-phone: ${phone}
+phone: ${phone},
+usuario: ${usuario}
     ''';
   }
 }
