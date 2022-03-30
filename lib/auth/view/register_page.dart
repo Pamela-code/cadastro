@@ -19,8 +19,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   registrar() async {
     try {
-      await RegisterController()
-          .registrar(controller.email.text, controller.password.text);
+      await RegisterController().registrar(
+        controller.email.text,
+        controller.password.text,
+        controller.name.text,
+        controller.phone.text,
+      );
     } on AuthException catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.message)));

@@ -133,8 +133,9 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
       AsyncAction('_RegisterControllerBase.registrar');
 
   @override
-  Future registrar(String email, String senha) {
-    return _$registrarAsyncAction.run(() => super.registrar(email, senha));
+  Future registrar(String email, String senha, String name, String phone) {
+    return _$registrarAsyncAction
+        .run(() => super.registrar(email, senha, name, phone));
   }
 
   final _$logoutAsyncAction = AsyncAction('_RegisterControllerBase.logout');
