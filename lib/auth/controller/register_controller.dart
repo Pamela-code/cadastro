@@ -1,3 +1,4 @@
+import 'package:cadastro/auth/controller/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -57,6 +58,8 @@ abstract class _RegisterControllerBase with Store {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: senha);
       _getUser();
+      await DatabaseService(uid: usuario!.uid)
+          .updateUserData(name.text, phone.text);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha é fraca');
