@@ -42,7 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              'Faça seu cadastro',
+              'Cadastro de Funcionários',
               style: TextStyle(
                 fontSize: 21,
                 fontWeight: FontWeight.w500,
@@ -202,46 +202,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Observer(builder: (_) {
-                        return Checkbox(
-                          shape: const CircleBorder(),
-                          value: controller.acceptTerms,
-                          onChanged: (value) {
-                            controller.acceptTerms = value!;
-                          },
-                        );
-                      }),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Text('Li e concordo com os'),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text('Termos de uso'),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              const Text('e'),
-                              TextButton(
-                                onPressed: () {},
-                                child: const Text('Política de privacidade'),
-                              ),
-                            ],
-                          ),
-                        ],
-                      )
-                    ],
-                  )
                 ],
               ),
             ),
@@ -272,26 +232,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Já tem uma conta?',
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Entrar',
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    )
-                  ],
                 ),
               ],
             ),
