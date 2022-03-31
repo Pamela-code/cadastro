@@ -11,15 +11,13 @@ class UsersList extends StatefulWidget {
 
 class _UsersListState extends State<UsersList> {
   RegisterController controller = RegisterController();
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('users').snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: StreamBuilder(
-        stream: _usersStream,
+        stream: controller.usersStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return const Center(
@@ -45,21 +43,65 @@ class _UsersListState extends State<UsersList> {
                   ),
                 ),
                 Expanded(
-                  child: ListView(
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data()! as Map<String, dynamic>;
-                      return Card(
-                        child: ListTile(
-                          title: Text('Nome: ${data['name']}'),
-                          subtitle: Text('Email: ${data['email']}'),
-                          trailing: Text('Celular: ${data['phone']}'),
+                    child: ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: ((context, index) {
+                    return GestureDetector(
+                      onTap: () => showModalBottomSheet(
+                        context: context,
+                        builder: (context) => Column(
+                          children: [
+                            const Text('Nome: '),
+                            TextFormField(
+                              controller: controller.name,
+                              // initialValue: snapshot.data!.docs[index]['name'],
+                            ),
+                            const Text('Email: '),
+                            TextFormField(
+                              controller: controller.email,
+                              // initialValue: snapshot.data!.docs[index]['email'],
+                            ),
+                            const Text('Celular: '),
+                            TextFormField(
+                              controller: controller.phone,
+                              // initialValue: snapshot.data!.docs[index]['phone'],
+                            ),
+                            const Text('Senha: '),
+                            TextFormField(
+                              controller: controller.password,
+                              // initialValue: snapshot.data!.docs[index]
+                              // ['password'],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                controller.atualizar(
+                                    snapshot.data!.docs[index]['id'],
+                                    'name',
+                                    controller.name.text);
+                                Navigator.pop(context);
+                                controller.clearFields();
+                              },
+                              child: const Text('Atualizar dados'),
+                            )
+                          ],
                         ),
-                      );
-                    }).toList(),
-                  ),
-                ),
+                      ),
+                      child: Card(
+                        child: ListTile(
+                          title: Text(
+                              'Nome: ${snapshot.data!.docs[index]['name']}'),
+                          subtitle: Text(
+                              'Email: ${snapshot.data!.docs[index]['email']}'),
+                          trailing: Text(
+                              'Celular: ${snapshot.data!.docs[index]['phone']}'),
+                        ),
+                      ),
+                    );
+                  }),
+                )),
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);

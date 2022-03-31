@@ -1,4 +1,5 @@
 import 'package:cadastro/auth/controller/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -29,6 +30,14 @@ abstract class _RegisterControllerBase with Store {
 
   @observable
   TextEditingController phone = TextEditingController();
+
+  @action
+  clearFields() {
+    name.clear();
+    email.clear();
+    password.clear();
+    phone.clear();
+  }
 
   @observable
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -70,10 +79,23 @@ abstract class _RegisterControllerBase with Store {
     }
   }
 
+  @action
+  atualizar(String uid, String key, String newValue) async {
+    try {
+      await DatabaseService().updateUser(uid, key, newValue);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @observable
   @action
   logout() async {
     await _auth.signOut();
     _getUser();
   }
+
+  @observable
+  Stream<QuerySnapshot> usersStream =
+      FirebaseFirestore.instance.collection('users').snapshots();
 }

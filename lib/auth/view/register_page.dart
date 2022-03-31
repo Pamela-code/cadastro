@@ -221,6 +221,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             builder: (context) => const UsersList(),
                           ),
                         );
+                        controller.clearFields();
                       }
                     },
                     child: const Text('Cadastrar'),

@@ -129,6 +129,21 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
     });
   }
 
+  final _$usersStreamAtom = Atom(name: '_RegisterControllerBase.usersStream');
+
+  @override
+  Stream<QuerySnapshot<Object?>> get usersStream {
+    _$usersStreamAtom.reportRead();
+    return super.usersStream;
+  }
+
+  @override
+  set usersStream(Stream<QuerySnapshot<Object?>> value) {
+    _$usersStreamAtom.reportWrite(value, super.usersStream, () {
+      super.usersStream = value;
+    });
+  }
+
   final _$registrarAsyncAction =
       AsyncAction('_RegisterControllerBase.registrar');
 
@@ -136,6 +151,15 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
   Future registrar(String email, String password, String name, String phone) {
     return _$registrarAsyncAction
         .run(() => super.registrar(email, password, name, phone));
+  }
+
+  final _$atualizarAsyncAction =
+      AsyncAction('_RegisterControllerBase.atualizar');
+
+  @override
+  Future atualizar(String uid, String key, String newValue) {
+    return _$atualizarAsyncAction
+        .run(() => super.atualizar(uid, key, newValue));
   }
 
   final _$logoutAsyncAction = AsyncAction('_RegisterControllerBase.logout');
@@ -147,6 +171,17 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
 
   final _$_RegisterControllerBaseActionController =
       ActionController(name: '_RegisterControllerBase');
+
+  @override
+  dynamic clearFields() {
+    final _$actionInfo = _$_RegisterControllerBaseActionController.startAction(
+        name: '_RegisterControllerBase.clearFields');
+    try {
+      return super.clearFields();
+    } finally {
+      _$_RegisterControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic _authCheck() {
@@ -179,7 +214,8 @@ name: ${name},
 email: ${email},
 password: ${password},
 phone: ${phone},
-usuario: ${usuario}
+usuario: ${usuario},
+usersStream: ${usersStream}
     ''';
   }
 }
