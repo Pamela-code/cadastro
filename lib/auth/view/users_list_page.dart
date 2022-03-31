@@ -1,4 +1,5 @@
 import 'package:cadastro/auth/controller/register_controller.dart';
+import 'package:cadastro/auth/view/edit_modal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -47,48 +48,14 @@ class _UsersListState extends State<UsersList> {
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: ((context, index) {
                     return GestureDetector(
-                      onTap: () => showModalBottomSheet(
-                        context: context,
-                        builder: (context) => Column(
-                          children: [
-                            const Text('Nome: '),
-                            TextFormField(
-                              controller: controller.name,
-                              // initialValue: snapshot.data!.docs[index]['name'],
-                            ),
-                            const Text('Email: '),
-                            TextFormField(
-                              controller: controller.email,
-                              // initialValue: snapshot.data!.docs[index]['email'],
-                            ),
-                            const Text('Celular: '),
-                            TextFormField(
-                              controller: controller.phone,
-                              // initialValue: snapshot.data!.docs[index]['phone'],
-                            ),
-                            const Text('Senha: '),
-                            TextFormField(
-                              controller: controller.password,
-                              // initialValue: snapshot.data!.docs[index]
-                              // ['password'],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                controller.atualizar(
-                                    snapshot.data!.docs[index]['id'],
-                                    'name',
-                                    controller.name.text);
-                                Navigator.pop(context);
-                                controller.clearFields();
-                              },
-                              child: const Text('Atualizar dados'),
-                            )
-                          ],
-                        ),
-                      ),
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return EditModal(
+                                  index: index, snapshot: snapshot);
+                            });
+                      },
                       child: Card(
                         child: ListTile(
                           title: Text(
