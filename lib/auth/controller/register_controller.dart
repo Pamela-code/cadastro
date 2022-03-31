@@ -54,11 +54,13 @@ abstract class _RegisterControllerBase with Store {
   }
 
   @action
-  registrar(String email, String senha, String name, String phone) async {
+  registrar(String email, String password, String name, String phone) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: senha);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       _getUser();
-      await DatabaseService(uid: usuario!.uid).updateUserData(name, phone);
+      await DatabaseService()
+          .createUserData(name, phone, email, password, usuario!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         throw AuthException('A senha é fraca');
@@ -68,6 +70,7 @@ abstract class _RegisterControllerBase with Store {
     }
   }
 
+  @observable
   @action
   logout() async {
     await _auth.signOut();

@@ -133,16 +133,16 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
       AsyncAction('_RegisterControllerBase.registrar');
 
   @override
-  Future registrar(String email, String senha, String name, String phone) {
+  Future registrar(String email, String password, String name, String phone) {
     return _$registrarAsyncAction
-        .run(() => super.registrar(email, senha, name, phone));
+        .run(() => super.registrar(email, password, name, phone));
   }
 
   final _$logoutAsyncAction = AsyncAction('_RegisterControllerBase.logout');
 
   @override
-  Future logout() {
-    return _$logoutAsyncAction.run(() => super.logout());
+  ObservableFuture logout() {
+    return ObservableFuture(_$logoutAsyncAction.run(() => super.logout()));
   }
 
   final _$_RegisterControllerBaseActionController =

@@ -1,4 +1,5 @@
 import 'package:cadastro/auth/controller/register_controller.dart';
+import 'package:cadastro/auth/view/users_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -253,6 +254,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         registrar();
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UsersList(),
+                          ),
+                        );
                       }
                     },
                     child: const Text('Cadastrar'),
