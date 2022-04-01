@@ -80,9 +80,15 @@ abstract class _RegisterControllerBase with Store {
   }
 
   @action
-  atualizar(String uid, String key, String newValue) async {
+  updateFields(String uid) async {
     try {
-      await DatabaseService().updateUser(uid, key, newValue);
+      await DatabaseService().updateUser(
+        uid,
+        email.text,
+        name.text,
+        phone.text,
+        password.text,
+      );
     } catch (e) {
       print(e);
     }

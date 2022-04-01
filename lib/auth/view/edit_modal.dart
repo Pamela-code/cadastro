@@ -19,7 +19,7 @@ class _EditModalState extends State<EditModal> {
   RegisterController controller = RegisterController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     controller.name = TextEditingController(
         text: widget.snapshot.data!.docs[widget.index]['name']);
     controller.email = TextEditingController(
@@ -28,35 +28,35 @@ class _EditModalState extends State<EditModal> {
         text: widget.snapshot.data!.docs[widget.index]['password']);
     controller.phone = TextEditingController(
         text: widget.snapshot.data!.docs[widget.index]['phone']);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
         const Text('Nome: '),
         Observer(builder: (_) {
           return TextFormField(
             controller: controller.name,
-            // initialValue: snapshot.data!.docs[index]['name'],
           );
         }),
         const Text('Email: '),
         Observer(builder: (_) {
           return TextFormField(
             controller: controller.email,
-            // initialValue: snapshot.data!.docs[index]['email'],
           );
         }),
         const Text('Celular: '),
         Observer(builder: (_) {
           return TextFormField(
             controller: controller.phone,
-            // initialValue: snapshot.data!.docs[index]['phone'],
           );
         }),
         const Text('Senha: '),
         Observer(builder: (_) {
           return TextFormField(
             controller: controller.password,
-            // initialValue: snapshot.data!.docs[index]
-            // ['password'],
           );
         }),
         const SizedBox(
@@ -64,8 +64,9 @@ class _EditModalState extends State<EditModal> {
         ),
         TextButton(
           onPressed: () {
-            controller.atualizar(widget.snapshot.data!.docs[widget.index]['id'],
-                'name', controller.name.text);
+            controller.updateFields(
+              widget.snapshot.data!.docs[widget.index]['id'],
+            );
             Navigator.pop(context);
             controller.clearFields();
           },

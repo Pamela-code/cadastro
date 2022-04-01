@@ -15,10 +15,15 @@ class DatabaseService {
     });
   }
 
-  Future<void> updateUser(uid, key, newValue) {
+  Future<void> updateUser(uid, newEmail, newName, newPhone, newPassword) {
     return usersCollection
         .doc(uid)
-        .update({key: newValue})
+        .update({
+          'name': newName,
+          'email': newEmail,
+          'phone': newPhone,
+          'password': newPassword,
+        })
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }

@@ -153,13 +153,12 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
         .run(() => super.registrar(email, password, name, phone));
   }
 
-  final _$atualizarAsyncAction =
-      AsyncAction('_RegisterControllerBase.atualizar');
+  final _$updateFieldsAsyncAction =
+      AsyncAction('_RegisterControllerBase.updateFields');
 
   @override
-  Future atualizar(String uid, String key, String newValue) {
-    return _$atualizarAsyncAction
-        .run(() => super.atualizar(uid, key, newValue));
+  Future updateFields(String uid) {
+    return _$updateFieldsAsyncAction.run(() => super.updateFields(uid));
   }
 
   final _$logoutAsyncAction = AsyncAction('_RegisterControllerBase.logout');
