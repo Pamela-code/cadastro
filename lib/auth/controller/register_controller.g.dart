@@ -161,11 +161,19 @@ mixin _$RegisterController on _RegisterControllerBase, Store {
     return _$updateFieldsAsyncAction.run(() => super.updateFields(uid));
   }
 
+  final _$deleteUserAsyncAction =
+      AsyncAction('_RegisterControllerBase.deleteUser');
+
+  @override
+  Future deleteUser(String uid) {
+    return _$deleteUserAsyncAction.run(() => super.deleteUser(uid));
+  }
+
   final _$logoutAsyncAction = AsyncAction('_RegisterControllerBase.logout');
 
   @override
-  ObservableFuture logout() {
-    return ObservableFuture(_$logoutAsyncAction.run(() => super.logout()));
+  Future logout() {
+    return _$logoutAsyncAction.run(() => super.logout());
   }
 
   final _$_RegisterControllerBaseActionController =

@@ -27,4 +27,12 @@ class DatabaseService {
         .then((value) => print("User Updated"))
         .catchError((error) => print("Failed to update user: $error"));
   }
+
+  Future<void> deleteUser(uid) {
+    return usersCollection
+        .doc(uid)
+        .delete()
+        .then((value) => print("User Deleted"))
+        .catchError((error) => print("Failed to delete user: $error"));
+  }
 }

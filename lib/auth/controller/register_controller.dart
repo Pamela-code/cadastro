@@ -94,7 +94,15 @@ abstract class _RegisterControllerBase with Store {
     }
   }
 
-  @observable
+  @action
+  deleteUser(String uid) async {
+    try {
+      await DatabaseService().deleteUser(uid);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @action
   logout() async {
     await _auth.signOut();

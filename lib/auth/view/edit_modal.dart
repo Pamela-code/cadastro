@@ -62,15 +62,28 @@ class _EditModalState extends State<EditModal> {
         const SizedBox(
           height: 20,
         ),
-        TextButton(
-          onPressed: () {
-            controller.updateFields(
-              widget.snapshot.data!.docs[widget.index]['id'],
-            );
-            Navigator.pop(context);
-            controller.clearFields();
-          },
-          child: const Text('Atualizar dados'),
+        Row(
+          children: [
+            TextButton(
+              onPressed: () {
+                controller.updateFields(
+                  widget.snapshot.data!.docs[widget.index]['id'],
+                );
+                Navigator.pop(context);
+                controller.clearFields();
+              },
+              child: const Text('Atualizar dados'),
+            ),
+            TextButton(
+              onPressed: () {
+                controller.deleteUser(
+                  widget.snapshot.data!.docs[widget.index]['id'],
+                );
+                Navigator.pop(context);
+              },
+              child: const Text('Deletar usuário'),
+            ),
+          ],
         )
       ],
     );
